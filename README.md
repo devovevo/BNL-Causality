@@ -1,5 +1,5 @@
 # BNL-Causality
-## Project Overvieq
+## Project Overview
 - [f_test.py] is a file containing utilities for performing F-tests
     to test for equality of variance as well as nested regression
     goodness of fit
