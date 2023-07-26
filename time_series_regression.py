@@ -8,12 +8,7 @@ from general_linear_regression import (
     GeneralLinearRegressionResults,
     general_linear_regression,
 )
-from time_series import (
-    TimeSeries,
-    laggedTimeSeries,
-    dfTimeSeries,
-    laggedTimeSeries,
-)
+from time_series import TimeSeries, lagged_time_series, dfTimeSeries
 from fastdist import fastdist
 
 
@@ -45,7 +40,7 @@ class GRBFRegressionResults(NamedTuple):
 def var_time_series_regression_design_matrix(
     time_series: TimeSeries, lags: list[int]
 ) -> VARDesignMatrix:
-    lagged_time_series = laggedTimeSeries(time_series=time_series, lags=lags)
+    lagged_time_series = lagged_time_series(time_series=time_series, lags=lags)
 
     intercept_array = ones(shape=(len(lagged_time_series.df.index), 1))
     intercept_dataframe = DataFrame(data=intercept_array, columns=["Intercept"])
@@ -92,7 +87,7 @@ def grbf_time_series_design_matrix(
     excluded_time_series: TimeSeries = dfTimeSeries(
         time_series.df.drop(exclude_explanatory_variables, axis=1)
     )
-    lagged_time_series: TimeSeries = laggedTimeSeries(
+    lagged_time_series: TimeSeries = lagged_time_series(
         time_series=excluded_time_series, lags=lags
     )
 
