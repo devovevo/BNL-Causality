@@ -45,7 +45,7 @@ def var_time_series_regression_design_matrix(
     intercept_array = ones(shape=(len(lagged_ts.df.index), 1))
     intercept_dataframe = DataFrame(data=intercept_array, columns=["Intercept"])
     lagged_time_series_w_intercept = concat(
-        objs=[intercept_dataframe, lagged_time_series.df], axis=1, copy=False
+        objs=[intercept_dataframe, lagged_ts.df], axis=1, copy=False
     )
 
     return VARDesignMatrix(lagged_time_series_w_intercept)
@@ -95,11 +95,11 @@ def grbf_time_series_design_matrix(
     feature_norms_dataframe: DataFrame = DataFrame(
         data=feature_norms_array,
         index=["Norms"],
-        columns=lagged_time_series.df.columns,
+        columns=lagged_ts.df.columns,
         copy=False,
     )
 
-    normalized_lagged_time_series: DataFrame = lagged_time_series.df.div(
+    normalized_lagged_time_series: DataFrame = lagged_ts.df.div(
         feature_norms_dataframe.values, axis="columns"
     )
 
