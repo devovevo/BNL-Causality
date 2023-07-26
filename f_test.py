@@ -1,14 +1,11 @@
-from typing import NamedTuple, Callable
+from typing import NamedTuple
 
-import numpy as np
-import pandas as pd
-from scipy.stats import levene
-
-""" [FTestResults] represents the results of performing a F-test with
+""" [FTestResults] represents the results of performing a F-statistic based
+    test with
 - [dfn], the first degrees of freedom of the given F-statistic
 - [dfd], the second degrees of freedom of the given F-statistic
 - [f_statistic], the F-statistic with ([dfn], [dfd]) degrees of freedom
-    representing the results of the given F-test
+    representing the results of the given test
 """
 
 
@@ -18,14 +15,14 @@ class FTestResults(NamedTuple):
     f_statistic: float
 
 
-""" [nestedRegressionFTest(rss_u,num_params_u,rss_r,num_params_r)] is
+""" [nested_regression_f_test(rss_u,num_params_u,rss_r,num_params_r)] is
     the [FTestResults] that comes from performing a nested regression F-test on
     an unrestricted model with residual sum of squares [rss_u] and number of
     params [num_params_u] and a restricted model with residual sum of squares
     [rss_r] and number of parameters [num_params_r]."""
 
 
-def nestedRegressionFTest(
+def nested_regression_f_test(
     rss_unrestricted: float,
     num_params_unrestricted: int,
     rss_restricted: float,
@@ -44,7 +41,7 @@ def nestedRegressionFTest(
     return FTestResults(dfn=dfn, dfd=dfd, f_statistic=f_statistic)
 
 
-""" [equalityVarianceFTest(variance_u,u_sample_size,variance_r,r_sample_size)]
+""" [equality_variance_f_test(variance_u,u_sample_size,variance_r,r_sample_size)]
     is the [FTestResults] that results from performing an F-test for equality
     of variance on two samples, one with variance [variance_u] and sample size
     [u_sample_size], and the other with variance [variance_r] and sample size
@@ -52,7 +49,7 @@ def nestedRegressionFTest(
 """
 
 
-def equalityVarianceFTest(
+def equality_variance_f_test(
     variance_unrestricted: float,
     unrestricted_sample_size: int,
     variance_restricted: float,

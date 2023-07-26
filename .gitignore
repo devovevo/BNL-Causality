@@ -17,3 +17,7 @@ pyproject.toml
 pyvenv.cfg
 test-time-series.py
 time_series_differencing.py
+causeme_example.py
+causeme_my_method.py
+results/
+experiments/
