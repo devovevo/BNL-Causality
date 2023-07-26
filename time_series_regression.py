@@ -40,9 +40,9 @@ class GRBFRegressionResults(NamedTuple):
 def var_time_series_regression_design_matrix(
     time_series: TimeSeries, lags: list[int]
 ) -> VARDesignMatrix:
-    lagged_time_series = lagged_time_series(time_series=time_series, lags=lags)
+    lagged_ts = lagged_time_series(time_series=time_series, lags=lags)
 
-    intercept_array = ones(shape=(len(lagged_time_series.df.index), 1))
+    intercept_array = ones(shape=(len(lagged_ts.df.index), 1))
     intercept_dataframe = DataFrame(data=intercept_array, columns=["Intercept"])
     lagged_time_series_w_intercept = concat(
         objs=[intercept_dataframe, lagged_time_series.df], axis=1, copy=False
@@ -87,13 +87,11 @@ def grbf_time_series_design_matrix(
     excluded_time_series: TimeSeries = dfTimeSeries(
         time_series.df.drop(exclude_explanatory_variables, axis=1)
     )
-    lagged_time_series: TimeSeries = lagged_time_series(
+    lagged_ts: TimeSeries = lagged_time_series(
         time_series=excluded_time_series, lags=lags
     )
 
-    feature_norms_array: ndarray = norm(
-        lagged_time_series.df, axis=0, keepdims=True
-    )
+    feature_norms_array: ndarray = norm(lagged_ts.df, axis=0, keepdims=True)
     feature_norms_dataframe: DataFrame = DataFrame(
         data=feature_norms_array,
         index=["Norms"],
